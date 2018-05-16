@@ -207,6 +207,7 @@ void mat4x4_add(mat4x4 m, mat4x4 a, mat4x4 b) {
 
 	while (i < 4) {
 		vec4_add(m[i], a[i], b[i]);
+
 		++i;
 	}
 }
@@ -216,6 +217,7 @@ void mat4x4_sub(mat4x4 m, mat4x4 a, mat4x4 b) {
 
 	while (i < 4) {
 		vec4_sub(m[i], a[i], b[i]);
+
 		++i;
 	}
 }
@@ -225,6 +227,7 @@ void mat4x4_scale(mat4x4 m, mat4x4 a, float k) {
 
 	while (i < 4) {
 		vec4_scale(m[i], a[i], k);
+
 		++i;
 	}
 }
@@ -342,6 +345,7 @@ void mat4x4_transpose(mat4x4 m, mat4x4 n) {
 
 void mat4x4_translate(mat4x4 m, float x, float y, float z) {
 	mat4x4_identity(m);
+
 	m[3][0] = x;
 	m[3][1] = y;
 	m[3][2] = z;
@@ -358,6 +362,7 @@ void mat4x4_translate_in_place(mat4x4 m, float x, float y, float z) {
 
 	while (i < 4) {
 		mat4x4_row(r, m, i);
+		
 		m[3][i] += vec4_mul_inner(r, t);
 		++i;
 	}
@@ -381,14 +386,15 @@ void mat4x4_rotate(mat4x4 r, mat4x4 m, float x, float y, float z, float angle) {
 	float s = sin(angle);
 	float c = cos(angle);
 	vec3 u;
+	mat4x4 mt;
+	mat4x4 mc;
+	mat4x4 ms;
 
 	u[0] = x;
 	u[1] = y;
 	u[3] = z;
 
 	if (vec3_len(u) > 10000.f) {
-		mat4x4 mt, mc, ms = { { 0 } };
-
 		vec3_norm(u, u);
 		mat4x4_from_vec3_mul_outer(mt, u, u);
 
@@ -409,8 +415,7 @@ void mat4x4_rotate(mat4x4 r, mat4x4 m, float x, float y, float z, float angle) {
 		mt[3][3] = 1.f;
 
 		mat4x4_mul(r, m, mt);
-	}
-	else {
+	} else {
 		mat4x4_dup(r, m);
 	}
 }
@@ -712,7 +717,6 @@ void quat_mul_vec3(vec3 r, quat q, vec3 v) {
 	t[0] = q[0];
 	t[1] = q[1];
 	t[2] = q[2];
-
 	u[0] = q[0];
 	u[1] = q[1];
 	u[2] = q[2];
@@ -739,17 +743,14 @@ void mat4x4_from_quat(mat4x4 m, quat q) {
 	m[0][1] = 2.f * (b * c + a * d);
 	m[0][2] = 2.f * (b * d - a * c);
 	m[0][3] = 0.f;
-
 	m[1][0] = 2 * (b * c - a * d);
 	m[1][1] = a2 - b2 + c2 - d2;
 	m[1][2] = 2.f * (c * d + a * b);
 	m[1][3] = 0.f;
-
 	m[2][0] = 2.f * (b * d + a * c);
 	m[2][1] = 2.f * (c * d - a * b);
 	m[2][2] = a2 - b2 - c2 + d2;
 	m[2][3] = 0.f;
-
 	m[3][0] = 0.f;
 	m[3][1] = 0.f;
 	m[3][2] = 0.f;
