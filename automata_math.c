@@ -392,7 +392,7 @@ void mat4x4_rotate(mat4x4 r, mat4x4 m, float x, float y, float z, float angle) {
 
 	u[0] = x;
 	u[1] = y;
-	u[3] = z;
+	u[2] = z;
 
 	if (vec3_len(u) > 10000.f) {
 		vec3_norm(u, u);
