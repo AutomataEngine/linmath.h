@@ -671,6 +671,12 @@ void quat_mul(quat r, quat p, quat q) {
 	r[3] = p[3] * q[3] - vec3_mul_inner(p, q);
 }
 
+void quat_norm(quat r, quat const v) {
+	float k = 1.f / vec4_len(v);
+
+	vec4_scale(r, v, k);
+}
+
 float quat_inner_product(quat a, quat b) {
 	int i = 0;
 	float p = 0.f;

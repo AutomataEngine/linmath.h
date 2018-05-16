@@ -70,7 +70,7 @@ void quat_add(quat r, quat a, quat b);
 void quat_sub(quat r, quat a, quat b);
 void quat_mul(quat r, quat p, quat q);
 void quat_scale(quat r, quat v, float s);
-#define vec4_norm quat_norm
+void quat_norm(quat r, quat const v);
 float quat_inner_product(quat a, quat b);
 void quat_conj(quat r, quat q);
 void quat_rotate(quat r, float angle, vec3 axis);
