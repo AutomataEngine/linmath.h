@@ -1,5 +1,5 @@
 # Math
-A small math library aimed at graphics programming
+A small math library aimed at graphics programming<br/>
 Forked from https://github.com/datenwolf/linmath.h
 
 ### About
