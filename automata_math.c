@@ -118,15 +118,15 @@ float vec4_mul_inner(vec4 const a, vec4 const b) {
 }
 
 float vec2_len(vec2 const v) {
-	return sqrt(vec2_mul_inner(v, v));
+	return (float)sqrt((double)vec2_mul_inner(v, v));
 }
 
 float vec3_len(vec3 const v) {
-	return sqrt(vec3_mul_inner(v, v));
+	return (float)sqrt((double)vec3_mul_inner(v, v));
 }
 
 float vec4_len(vec4 const v) {
-	return sqrt(vec4_mul_inner(v, v));
+	return (float)sqrt((double)vec4_mul_inner(v, v));
 }
 
 void vec2_norm(vec2 r, vec2 const v) {
@@ -383,8 +383,8 @@ void mat4x4_from_vec3_mul_outer(mat4x4 m, vec3 a, vec3 b) {
 }
 
 void mat4x4_rotate(mat4x4 r, mat4x4 m, float x, float y, float z, float angle) {
-	float s = sin(angle);
-	float c = cos(angle);
+	float s = (float)sin((double)angle);
+	float c = (float)cos((double)angle);
 	vec3 u;
 	mat4x4 mt;
 	mat4x4 mc;
@@ -421,8 +421,8 @@ void mat4x4_rotate(mat4x4 r, mat4x4 m, float x, float y, float z, float angle) {
 }
 
 void mat4x4_rotate_x(mat4x4 q, mat4x4 m, float angle) {
-	float s = sin(angle);
-	float c = cos(angle);
+	float s = (float)sin((double)angle);
+	float c = (float)cos((double)angle);
 	mat4x4 r;
 
 	r[0][0] = 1.f;
@@ -436,8 +436,8 @@ void mat4x4_rotate_x(mat4x4 q, mat4x4 m, float angle) {
 }
 
 void mat4x4_rotate_y(mat4x4 q, mat4x4 m, float angle) {
-	float s = sin(angle);
-	float c = cos(angle);
+	float s = (float)sin((double)angle);
+	float c = (float)cos((double)angle);
 	mat4x4 r;
 
 	r[0][0] = c;
@@ -451,8 +451,8 @@ void mat4x4_rotate_y(mat4x4 q, mat4x4 m, float angle) {
 }
 
 void mat4x4_rotate_z(mat4x4 q, mat4x4 m, float angle) {
-	float s = sin(angle);
-	float c = cos(angle);
+	float s = (float)sin((double)angle);
+	float c = (float)cos((double)angle);
 	mat4x4 r;
 
 	r[0][0] = c;
@@ -572,7 +572,7 @@ void mat4x4_ortho(mat4x4 m, float l, float r, float b, float t, float n, float f
 void mat4x4_perspective(mat4x4 m, float y_fov, float aspect, float n, float f) {
 	/* NOTE: uses radians instead of degrees */
 
-	float const a = 1.f / tan(y_fov / 2.f);
+	float const a = 1.f / (float)tan((double)(y_fov / 2.f));
 
 	m[0][0] = a / aspect;
 	m[0][1] = 0.f;
@@ -704,14 +704,14 @@ void quat_rotate(quat r, float angle, vec3 axis) {
 	int i = 0;
 	vec3 v;
 
-	vec3_scale(v, axis, sin(angle / 2));
+	vec3_scale(v, axis, (float)sin((double)angle / 2));
 
 	while (i < 3) {
 		r[i] = v[i];
 		++i;
 	}
 
-	r[3] = cos(angle / 2);
+	r[3] = (float)cos((double)angle / 2);
 }
 
 void quat_mul_vec3(vec3 r, quat q, vec3 v) {
@@ -794,7 +794,7 @@ void quat_from_mat4x4(quat q, mat4x4 m) {
 		++i;
 	}
 
-	r = sqrt(1.f + m[p[0]][p[0]] - m[p[1]][p[1]] - m[p[2]][p[2]]);
+	r = (float)sqrt((double)(1.f + m[p[0]][p[0]] - m[p[1]][p[1]] - m[p[2]][p[2]]));
 
 	if (r < 0.000001f) {
 		q[0] = 1.f;
