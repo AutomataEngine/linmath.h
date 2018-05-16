@@ -118,15 +118,15 @@ float vec4_mul_inner(vec4 const a, vec4 const b) {
 }
 
 float vec2_len(vec2 const v) {
-	return (float)sqrt(vec2_mul_inner(v, v));
+	return sqrt(vec2_mul_inner(v, v));
 }
 
 float vec3_len(vec3 const v) {
-	return (float)sqrt(vec3_mul_inner(v, v));
+	return sqrt(vec3_mul_inner(v, v));
 }
 
 float vec4_len(vec4 const v) {
-	return (float)sqrt(vec4_mul_inner(v, v));
+	return sqrt(vec4_mul_inner(v, v));
 }
 
 void vec2_norm(vec2 r, vec2 const v) {
